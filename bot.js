@@ -1,9 +1,8 @@
 import config from "./dotenv.js";
 import { Client, GatewayIntentBits } from "discord.js";
-import { keep_alive } from "./keep_alive.js";
+import  keep_alive  from "./keep_alive.js";
 
 
-keep_alive();
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
