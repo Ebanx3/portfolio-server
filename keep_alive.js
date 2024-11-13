@@ -6,5 +6,5 @@ export const keep_alive = () => {
       res.write("I am alive!");
       res.end();
     })
-    .listen(8080);
+    .listen(process.env.PORT || 8080);
 };
