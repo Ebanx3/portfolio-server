@@ -5,13 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node bot", 
+    "start": "node bot",
     "dev": "node --watch bot --loadEnv"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "discord.js": "^14.16.3",
     "express": "^4.21.1",
     "nodemailer": "^6.9.16"
