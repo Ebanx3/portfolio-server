@@ -1,8 +1,16 @@
-import config from "./dotenv.js";
-import { Client, GatewayIntentBits } from "discord.js";
-import  {keep_alive} from "./keep_alive.js";
+process.loadEnvFile();
+const { BOT_TOKEN } = process.env;
+if ( !BOT_TOKEN) {
+  throw Error(
+    "BOT_TOKEN environment variable is necessary"
+  );
+}
 
-keep_alive();
+import { Client, GatewayIntentBits } from "discord.js";
+import  { InitServer } from "./index.js";
+
+InitServer();
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -67,4 +75,4 @@ client.on("messageReactionAdd", async (reaction, user) => {
   }
 });
 
-client.login(config.BOT_TOKEN);
+client.login(BOT_TOKEN);
