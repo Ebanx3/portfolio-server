@@ -1,13 +1,6 @@
-process.loadEnvFile();
-const { EMAIL_ADDRESS, EMAIL_APP_PASSWORD, EMAIL_SERVICE, EMAIL_PORT } = process.env;
-if (!EMAIL_ADDRESS || !EMAIL_APP_PASSWORD || !EMAIL_SERVICE || !EMAIL_PORT) {
-  throw Error(
-    "EMAIL_ADDRESS, EMAIL_APP_PASSWORD, EMAIL_SERVICE and EMAIL_PORT environment variables are necessary"
-  );
-}
-
 import express from "express";
 import nodemailer from "nodemailer";
+import { EMAIL_SERVICE, EMAIL_ADDRESS, EMAIL_PORT, EMAIL_APP_PASSWORD } from "./envVariables.js";
 
 const server = express();
 server.use(express.json());

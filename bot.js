@@ -1,13 +1,6 @@
-process.loadEnvFile();
-const { BOT_TOKEN } = process.env;
-if ( !BOT_TOKEN) {
-  throw Error(
-    "BOT_TOKEN environment variable is necessary"
-  );
-}
-
+import { BOT_TOKEN} from "./envVariables.js";
 import { Client, GatewayIntentBits } from "discord.js";
-import  { InitServer } from "./index.js";
+import  { InitServer } from "./server.js";
 
 InitServer();
 
