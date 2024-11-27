@@ -5,7 +5,7 @@ import { EMAIL_SERVICE, EMAIL_ADDRESS, EMAIL_PORT, EMAIL_APP_PASSWORD } from "./
 
 const server = express();
 server.use(express.json());
-server.use(cors());
+server.use(cors({ origin: "https://ebanx3.github.io"}));
 
 const port = process.env.PORT || 8080;
 
