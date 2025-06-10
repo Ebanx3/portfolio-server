@@ -7,12 +7,13 @@ import {
   EMAIL_PORT,
   EMAIL_APP_PASSWORD,
   REDIS,
+  FRONTEND_URL
 } from "./envVariables.js";
 import { createClient } from "redis";
 
 const server = express();
 server.use(express.json());
-server.use(cors({ origin: ["https://ebanx3.github.io", "http://127.0.0.1:5500"] }));
+server.use(cors({ origin: FRONTEND_URL }));
 
 const port = process.env.PORT || 8080;
 
