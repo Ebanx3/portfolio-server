@@ -1,13 +1,22 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import cors from "cors";
-import { EMAIL_SERVICE, EMAIL_ADDRESS, EMAIL_PORT, EMAIL_APP_PASSWORD } from "./envVariables.js";
+import {
+  EMAIL_SERVICE,
+  EMAIL_ADDRESS,
+  EMAIL_PORT,
+  EMAIL_APP_PASSWORD,
+  REDIS,
+} from "./envVariables.js";
+import { createClient } from "redis";
 
 const server = express();
 server.use(express.json());
-server.use(cors({ origin: "https://ebanx3.github.io"}));
+server.use(cors({ origin: ["https://ebanx3.github.io", "http://127.0.0.1:5500"] }));
 
 const port = process.env.PORT || 8080;
+
+const redis_key = "visitors";
 
 const transporter = nodemailer.createTransport({
   host: EMAIL_SERVICE,
@@ -21,7 +30,15 @@ const transporter = nodemailer.createTransport({
 
 server.get("/serverStatus", async (req, res) => {
   try {
-    res.status(200).json({ success: true, message: "server status ON" });
+    const client = await createClient({url:REDIS})
+      .on("error", (err) => console.log(err))
+      .connect();
+    const value = await client.get(redis_key);
+    const visits = parseInt(value)
+    await client.set(redis_key, visits + 1);
+    res
+      .status(200)
+      .json({ success: true, message: "server status ON", visits: visits + 1});
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: "Server error" });
@@ -44,7 +61,7 @@ server.post("/redirectEmail", async (req, res) => {
     }
 
     const mailOptions = {
-      from: EMAIL_ADDRESS,
+      from:`Portfolio <${EMAIL_ADDRESS}>`,
       to: EMAIL_ADDRESS,
       subject: `Recibiste un mensaje desde tu sitio web`,
       html: `
@@ -68,8 +85,6 @@ server.use((req, res) => {
   res.status(404).send("Undefined path");
 });
 
-export const InitServer = () => {
-  server.listen(port, () => {
-    console.log(`Server up! Listening at port ${port}`);
-  });
-};
+server.listen(port, () => {
+  console.log(`Server up! Listening at port ${port}`);
+});
