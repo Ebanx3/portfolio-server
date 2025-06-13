@@ -5,18 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node server",
-    "dev": "node --watch server --loadEnv"
+    "start": "node src/index",
+    "dev": "node --watch src/index --loadEnv"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "discord.js": "^14.16.3",
     "express": "^4.21.1",
-    "nodemailer": "^6.9.16",
-    "redis": "^5.5.6"
+    "redis": "^5.5.6",
+    "resend": "^4.5.2"
   },
   "devDependencies": {
     "dotenv": "^16.4.5"
