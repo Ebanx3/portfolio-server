@@ -1,7 +1,7 @@
-import { envs } from "./environmentVariables.js"
+import { envs } from "./environmentVariables.js";
 import { createClient } from "redis";
 
-const redis_key = "portfolio-visits"
+const redis_key = "portfolio-visits";
 
 export const addNewVisit = async () => {
   const client = await createClient({ url: envs.REDIS_URL })
@@ -14,19 +14,21 @@ export const addNewVisit = async () => {
 };
 
 export const addFrontendUrlEmail = async (url, email) => {
-  const client = await createClient({url:envs.REDIS_URL})
-  .on("error", (err) => console.log(err))
-  .connect();
+  const client = await createClient({ url: envs.REDIS_URL })
+    .on("error", (err) => console.log(err))
+    .connect();
   await client.set(url, email);
   client.destroy();
   return true;
-}
+};
 
 export const getEmail = async (url) => {
-  const client = await createClient({url:envs.REDIS_URL})
-  .on("error", (err) => console.log(err))
-  .connect();
+  const client = await createClient({ url: envs.REDIS_URL })
+    .on("error", (err) => console.log(err))
+    .connect();
   const email = await client.get(url);
+  console.log(email)
   client.destroy();
+  console.log(email)
   return email;
-}
+};
