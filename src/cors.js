@@ -8,6 +8,7 @@ export const corsOption = {
       }
 
       try {
+        console.log(origin)
         const email = await getEmail(origin);
         if (!email) return callback(new Error("Not allowed by CORS"));
         
