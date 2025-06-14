@@ -26,9 +26,10 @@ export const getEmail = async (url) => {
   const client = await createClient({ url: envs.REDIS_URL })
     .on("error", (err) => console.log(err))
     .connect();
+  console.log("Conectado a render correctamente");
   const email = await client.get(url);
-  console.log(email)
-  client.destroy();
-  console.log(email)
+  console.log(email);
+  client.quit();
+  console.log(email);
   return email;
 };
