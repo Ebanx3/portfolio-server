@@ -28,6 +28,7 @@ export const getEmail = async (urlf) => {
     .on("error", (err) => console.log(err))
     .connect();
     const keys = await client.keys('*')
+    console.log(keys)
     const email = await client.get(urlf);
   client.quit();
   return email;
