@@ -23,11 +23,13 @@ export const addFrontendUrlEmail = async (url, email) => {
   return true;
 };
 
-export const getEmail = async (url) => {
+export const getEmail = async (urlf) => {
   const client = await createClient({ url: envs.REDIS_URL })
     .on("error", (err) => console.log(err))
     .connect();
-  const email = await client.get(url);
+    console.log(urlf)
+    const email = await client.get(urlf);
+    console.log(email)
   client.quit();
   return email;
 };
